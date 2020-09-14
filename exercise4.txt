@@ -1,0 +1,52 @@
+Cryptocurrencies
+1. Double-spending is the result of successfully spending some money more
+than once. This is an important problem any cryptocurrency should solve.
+How does Bitcoin prevent this kind of attacks?
+
+2. What’s a blockchain fork? What kinds of fork exist?
+
+
+
+Answers:
+1. Bitcoin solves the double-spending problem by logging each transaction into the blockchain.
+The blockchain consists of a linked list of blocks. Each block consists of a set of transactions.
+Thus, the entire history of the money can be traced to its origins, making it impossible to add
+transactions of the same bitcoin to 2 different places.
+
+When person A sends money to person B, the transaction is broadcasted to all nodes. However, the
+transaction will arrive at each node at slightly different times. If someone tried to double-spend,
+each server would consider the first transaction it received as valid and the second one as invalid.
+To make every server agree on which transaction is valid and which is not, there needs to be a
+consensus algorithm.
+
+Bitcoin uses proof-of-work, in which a difficult puzzle (finding a partial hash collition) must be
+solved in order to add a block of transactions to the blockchain (this is called mining).
+Thus, the first miner who solves the problem (which depends on the last block in the chain) gets
+to add it to the blockchain and broadcast it, which will mean that each server will accept it if
+the proof-of-work is correct.
+
+There can still be a disagreement if 2 miners solve a different block at the same time, which would
+mean that there are 2 branches of the blockchain at that moment. The way to solve this is each
+server temporarily keeps both blocks, and when new blocks arrive, they must use one or the other
+as the base block they're linking to. Since the longest chain is considered the valid one,
+eventually one branch will outgrow the other, and miners will be incentivized to mine on the longest
+chain, effectively solving the disagreement.
+
+2. A blockchain fork happens when a blockchain diverges into two potential paths forward. They can be
+classified as intentional or accidental.
+
+Accidental forks happen when 2 miners mine a block at nearly the same time. This divergence is short-lived
+as the blockchain will eventually choose one path and dismiss the other (with the mechanism described in
+the previous answer).
+
+Intentional forks happen when some parties want to change the protocol to add features to the blockchain,
+fix bugs or vulnerabilities, or reverse the effect of hacking, but other parties are not in agreement,
+making the blockchain diverge.
+
+Intentional forks can be classified as hard forks or soft forks.
+
+Hard forks are when the software validating according to the old rules sees the new blocks as invalid.
+All nodes that want to follow this new path must upgrade their software.
+
+Soft forks happen when old nodes do not follow a new rule, which causes them to accept data that is invalid
+to the new nodes.
